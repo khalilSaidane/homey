@@ -1,23 +1,22 @@
-{# Load the tag library #}
+{% extends 'base.html' %}
 {% load bootstrap4 %}
 
-{# Load CSS and JavaScript #}
-{% bootstrap_css %}
-{% bootstrap_javascript jquery='full' %}
+{% block content %}
+    {# Display a form #}
 
-{# Display django.contrib.messages as Bootstrap alerts #}
-{% bootstrap_messages %}
-
-{# Display a form #}
-<form action="{% url 'register' %}" method="post" class="form">
-  {% csrf_token %}
-  {% bootstrap_form form %}
-  {% buttons %}
-    <button type="submit" class="btn btn-primary">
-      Submit
-    </button>
-  {% endbuttons %}
-</form>
-
-
-{# Read the documentation for more information #}
+    <div class="card m-5">
+        <div class="card-body ">
+            <h1 class="m-2">Register:</h1>
+            <form action="{% url 'register' %}" method="post" class="form m-5">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                {% buttons %}
+                    <button type="submit" class="btn btn-primary">
+                        Submit
+                    </button>
+                {% endbuttons %}
+            </form>
+        </div>
+    </div>
+    {# Read the documentation for more information #}
+{% endblock %}

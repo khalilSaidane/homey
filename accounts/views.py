@@ -27,5 +27,4 @@ def register(request):
         form.save(request)
         return redirect('login')
     else:
-        print('in else')
         return render(request,'accounts/register.html', context)
