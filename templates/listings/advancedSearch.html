@@ -1,0 +1,110 @@
+{# Load the tag library #}
+{% load bootstrap4 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+            <form>
+                <div class="container ">
+                    <div class="row m-1">
+                        <div class="col m-1">
+                            <select class="form-control" name="all-status">
+                                <option>All Status</option>
+                                <option>For Sale</option>
+                                <option>For Rent</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row m-1">
+                        <div class="col m-1">
+                            <select class="form-control" name="all-type">
+                                <option>All Type</option>
+                                <option>Apartments</option>
+                                <option>Houses</option>
+                                <option>Commercial</option>
+                                <option>Garages</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row m-1">
+                        <div class="col m-1">
+
+                            <select class="form-control" name="commercial">
+                                <option>Commercial</option>
+                                <option>Residential</option>
+                                <option>Land</option>
+                                <option>Hotels</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row m-1">
+                        <div class="col m-1">
+
+                            <select class="form-control" name="location">
+                                <option>location</option>
+                                <option>New York</option>
+                                <option>Bangladesh</option>
+                                <option>India</option>
+                                <option>Canada</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row m-1">
+                        <div class="col">
+
+                            <select class="form-control" name="bedrooms">
+                                <option>Bedrooms</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                            </select>
+                        </div>
+                        <div class="col">
+
+                            <select class="form-control" name="bathroom">
+                                <option>Bathroom</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row m-1">
+                        <div class="col">
+
+                            <select class="form-control" name="balcony">
+                                <option>Balcony</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                            </select>
+                        </div>
+                        <div class="col ">
+                            <select class="form-control" name="garage">
+                                <option>Garage</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row m-1">
+                        <div class="col m-1">
+                            <button class="btn btn-primary form-control">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

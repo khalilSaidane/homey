@@ -1,10 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load fontawesome %}
+{% block content %}
+    {% fontawesome_stylesheet %}
+    <!-- Alerts-->
+    {% include 'partials/_alerts.html' %}
 
-</body>
-</html>
+    <div class="container-fluid m-1">
+        <div class="row">
+            <div class="col-md-4">
+                {% include 'listings/advancedSearch.html' %}
+            </div>
+            {% for listing in listings %}
+                <div class="col m-1">
+                    <div class="card-deck">
+                        <div class="card">
+                            <img class="card-img-top" alt="Card image cap" src={{ listing.photo_main.url }}>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ listing.publisher }}</h5>
+                                <p class="card-text">{{ listing.description }}</p>
+                                <button class="btn btn-outline-secondary">{% fontawesome_icon 'heart' %}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

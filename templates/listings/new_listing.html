@@ -5,7 +5,7 @@
     <div class="card m-4">
         <div class="card-body ">
             <h1 class="m-2">Submit Property:</h1>
-            <form action="{% url 'add' %}" method="post" class="form m-5" enctype="multipart/form-data">
+            <form action="{% url 'new_listing' %}" method="post" class="form m-5" enctype="multipart/form-data">
                 {% csrf_token %}
                 {% bootstrap_form form %}
                 {% buttons %}

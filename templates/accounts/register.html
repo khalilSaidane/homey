@@ -2,12 +2,14 @@
 {% load bootstrap4 %}
 
 {% block content %}
+
+
     {# Display a form #}
 
-    <div class="card m-5">
+    <div class="card m-4">
         <div class="card-body ">
             <h1 class="m-2">Register:</h1>
-            <form action="{% url 'register' %}" method="post" class="form m-5">
+            <form action="{% url 'register' %}" method="post" class="form">
                 {% csrf_token %}
                 {% bootstrap_form form %}
                 {% buttons %}
@@ -19,4 +21,5 @@
         </div>
     </div>
     {# Read the documentation for more information #}
+
 {% endblock %}

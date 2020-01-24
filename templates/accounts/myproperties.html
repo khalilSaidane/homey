@@ -11,34 +11,30 @@
         </tr>
         </thead>
         <tbody>
+        {% for property in myproperties %}
         <tr>
             <td>
                 <img src="" alt="">
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            <img src="" alt="">
+                            <img class="img-fluid" src="{{ property.photo_main.url }}">
                         </div>
                         <div class="col">
-                            <div class="row">Modern Family House</div>
+                            <div class="row">{{ property.name }}</div>
                             <div class="row">Ksar Hellal Monastir</div>
                             <div class="row">$ 54 0000</div>
                         </div>
                     </div>
                 </div>
             </td>
-            <td>Otto</td>
-            <td>@mdo</td>
+            <td>{{property.list_date}}</td>
+            <td>
+                <a class="m-2" id="edit">  {% fontawesome_icon 'edit' %} Edit</a>
+                <a id="delete">  {% fontawesome_icon 'trash' %}</a>
+            </td>
         </tr>
-        <tr>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-        </tr>
-        <tr>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-        </tr>
+        {% endfor %}
         </tbody>
     </table>
 {% endblock %}

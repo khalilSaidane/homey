@@ -1,0 +1,84 @@
+{# Load the tag library #}
+{% load bootstrap4 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+{% block content %}
+    <div class="card m-4">
+        <div class="card-body">
+            <table class="table table-borderless">
+                <form>
+                    <tr>
+                        <td>
+                            <select name="area" class="form-control">
+                                <option>Area</option>
+                                <option>3000</option>
+                                <option>2600</option>
+                                <option>2200</option>
+                                <option>1800</option>
+                            </select>
+                        </td>
+                    </tr>
+                        <td>
+                            <select name="property-status" class="form-control">
+                                <option>Property Status</option>
+                                <option>For Sale</option>
+                                <option>For Rent</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="property-types" class="form-control ">
+                                <option>Property Types</option>
+                                <option>Apartments</option>
+                                <option>Houses</option>
+                                <option>Commercial</option>
+                                <option>Garages</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="location" class="form-control">
+                                <option>Location</option>
+                                <option>United States</option>
+                                <option>United Kingdom</option>
+                                <option>American Samoa</option>
+                                <option>Belgium</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <select name="max-area" class="form-control">
+                                <option>Max Area (Sq Ff)</option>
+                                <option>2400</option>
+                                <option>2800</option>
+                                <option>3200</option>
+                                <option>3600</option>
+                                <option>4000</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="min-area" class="form-control">
+                                <option>Min Area (Sq Ff)</option>
+                                <option>2400</option>
+                                <option>2800</option>
+                                <option>3200</option>
+                                <option>3600</option>
+                                <option>4000</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input id="min-input" type="range" class="form-control-range form-control" step="500" min="0" max="100000" id="formControlRange">
+                        </td>
+                        <td>
+                            <button class="btn btn-primary form-control">Search</button>
+                        </td>
+                    </tr>
+                </form>
+            </table>
+        </div>
+    </div>
+{% endblock %}

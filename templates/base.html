@@ -4,8 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Homey</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dropzone.css' %}">
 </head>
-<body>
+<body style="background-color: #1B1410">
 {# Load the tag library #}
 {% load bootstrap4 %}
 
@@ -13,11 +15,17 @@
 {% bootstrap_css %}
 {% bootstrap_javascript jquery='full' %}
 
-{# Display django.contrib.messages as Bootstrap alerts #}
-{% bootstrap_messages %}
-     <!--  nav bar -->
-    {% include 'partials/_navbar.html' %}
+
+<!--  nav bar -->
+{% include 'partials/_navbar.html' %}
+<div class="m-4">
+    {# Display django.contrib.messages as Bootstrap alerts #}
+    {% bootstrap_messages %}
+</div>
+
 {% block content %}
 {% endblock %}
+  <script src="{% static 'js/actions.js' %}"></script>
+
 </body>
 </html>

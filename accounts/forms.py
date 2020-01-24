@@ -1,12 +1,14 @@
 from django import forms
 from django.contrib import auth
 from django.contrib.auth.models import User
+from .models import Profile
 
+from accounts.models import Profile
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(max_length=20, required=True)
-    password = forms.CharField(max_length=20, required=True)
+    username = forms.CharField()
+    password = forms.CharField(widget=forms.PasswordInput, required=True)
 
     def is_valid(self):
         username = self.data.get('username')
@@ -20,6 +22,7 @@ class LoginForm(forms.Form):
             auth_user = auth.authenticate(username=username, password=password)
             if auth_user is None:
                 self.add_error('password', 'Incorrect password')
+                return False
             else:
                 self.full_clean()
                 return True
@@ -27,7 +30,7 @@ class LoginForm(forms.Form):
 
 class RegisterForm(forms.ModelForm):
     # additional field to verify the password
-    password2 = forms.CharField(max_length=100, required=True)
+    confirm_password = forms.CharField(max_length=100, required=True)
 
     class Meta:
         model = User
@@ -37,16 +40,16 @@ class RegisterForm(forms.ModelForm):
             'username',
             'email',
             'password',
-            'password2'
+            'confirm_password'
         ]
 
     def is_valid(self):
         password = self.data.get('password')
-        password2 = self.data.get('password2')
+        confirm_password = self.data.get('confirm_password')
         email = self.data.get('email')
         # Check the password
-        if password != password2:
-            self.add_error('password2', 'Passwords do not match')
+        if password != confirm_password:
+            self.add_error('confirm_password', 'Passwords do not match')
             return False
         else:
             # Check if email already exists
@@ -55,3 +58,48 @@ class RegisterForm(forms.ModelForm):
                 return False
         self.full_clean()
         return True
+
+    # With the default method the password is not hashed
+    def save(self, commit=True):
+        username = self.data.get('username')
+        email = self.data.get('email')
+        password = self.data.get('password')
+        first_name = self.data.get('first_name')
+        last_name = self.data.get('username')
+        profile = Profile()
+        user = User.objects.create_user(username=username, email=email, password=password
+                                        , first_name=first_name, last_name=last_name)
+        user.save()
+        profile.user = user
+        profile.save()
+        return user
+
+
+class EditUserForm(forms.ModelForm):
+    photo = forms.ImageField()
+
+
+    class Meta:
+        model = User
+        fields = [
+            'first_name',
+            'last_name',
+            'email',
+            'photo'
+        ]
+
+    def save(self, request, commit=True):
+        user = request.user
+        user.first_name = self.data.get('first_name')
+        user.last_name = self.data.get('last_name')
+        user.email = self.data.get('email')
+        user.profile.photo = self.data.get('photo')
+        user.save()
+        user.profile.save()
+        return user
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['photo']
