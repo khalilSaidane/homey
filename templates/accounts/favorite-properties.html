@@ -1,0 +1,45 @@
+{% extends 'accounts/profile.html' %}
+{% load bootstrap4 %}
+{% load fontawesome %}
+{% block profile_section %}
+    {% if favorite_properties %}
+            <h1 class="m-2">Favorite Properties:</h1>
+        <table class="table table-hover">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">Property</th>
+                <th scope="col">Date</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for property in favorite_properties %}
+                <tr>
+                    <td>
+                        <img src="" alt="">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <img class="img-fluid" src="{{ property.photo_main.url }}">
+                                </div>
+                                <div class="col">
+                                    <div class="row">{{ property.name }}</div>
+                                    <div class="row">Ksar Hellal Monastir</div>
+                                    <div class="row">$ 54 0000</div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>{{ property.list_date }}</td>
+                    <td>
+                        <a class="btn btn-danger"
+                           href="{% url 'like' property.id %}">{% fontawesome_icon 'heart' %}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="text-center text-info">You don't have any properties yet</p>
+    {% endif %}
+{% endblock %}

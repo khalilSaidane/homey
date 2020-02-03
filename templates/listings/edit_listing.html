@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+    <div class="card m-4">
+        <div class="card-body ">
+            <h1 class="m-2">Edit Property:</h1>
+            <form action="{% url 'new_listing' %}" method="post" class="form m-5" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                {% buttons %}
+                    <button type="submit" class="btn btn-primary">
+                        save
+                    </button>
+                {% endbuttons %}
+            </form>
+        </div>
+    </div>
+    {# Read the documentation for more information #}
+{% endblock %}

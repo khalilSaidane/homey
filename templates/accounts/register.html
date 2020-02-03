@@ -9,7 +9,7 @@
     <div class="card m-4">
         <div class="card-body ">
             <h1 class="m-2">Register:</h1>
-            <form action="{% url 'register' %}" method="post" class="form">
+            <form action="{% url 'register' %}" method="post" class="form" enctype="multipart/form-data">
                 {% csrf_token %}
                 {% bootstrap_form form %}
                 {% buttons %}

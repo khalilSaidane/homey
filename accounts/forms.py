@@ -30,7 +30,8 @@ class LoginForm(forms.Form):
 
 class RegisterForm(forms.ModelForm):
     # additional field to verify the password
-    confirm_password = forms.CharField(max_length=100, required=True)
+    confirm_password = forms.CharField(max_length=100, required=True, widget=forms.PasswordInput)
+    photo = forms.ImageField()
 
     class Meta:
         model = User
@@ -40,7 +41,8 @@ class RegisterForm(forms.ModelForm):
             'username',
             'email',
             'password',
-            'confirm_password'
+            'confirm_password',
+            'photo'
         ]
 
     def is_valid(self):
@@ -61,23 +63,24 @@ class RegisterForm(forms.ModelForm):
 
     # With the default method the password is not hashed
     def save(self, commit=True):
-        username = self.data.get('username')
-        email = self.data.get('email')
-        password = self.data.get('password')
-        first_name = self.data.get('first_name')
-        last_name = self.data.get('username')
+        username = self.cleaned_data['username']
+        email = self.cleaned_data['email']
+        password = self.cleaned_data['password']
+        first_name = self.cleaned_data['first_name']
+        last_name = self.cleaned_data['username']
+        photo = self.cleaned_data['photo']
         profile = Profile()
-        user = User.objects.create_user(username=username, email=email, password=password
-                                        , first_name=first_name, last_name=last_name)
+        user = User.objects.create_user(username=username, email=email, password=password, first_name=first_name,
+                                        last_name=last_name)
         user.save()
         profile.user = user
+        profile.photo = photo
         profile.save()
+        print(profile.photo)
         return user
 
 
 class EditUserForm(forms.ModelForm):
-    photo = forms.ImageField()
-
 
     class Meta:
         model = User
@@ -85,7 +88,6 @@ class EditUserForm(forms.ModelForm):
             'first_name',
             'last_name',
             'email',
-            'photo'
         ]
 
     def save(self, request, commit=True):

@@ -3,7 +3,7 @@ from .forms import LoginForm, RegisterForm, EditUserForm, ProfileForm
 from django.contrib import messages, auth
 from listings.models import Listing
 from django.contrib.auth import update_session_auth_hash
-from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
+from django.contrib.auth.forms import PasswordChangeForm
 
 
 def login(request):
@@ -22,24 +22,27 @@ def login(request):
 
 
 def register(request):
-    form = RegisterForm(request.POST or None)
+    form = RegisterForm(request.POST or None, request.FILES or None)
     context = {
         'form': form
     }
     if request.method == 'POST' and form.is_valid():
-        form.save()
+        print(form.save())
         return redirect('login')
     else:
         return render(request, 'accounts/register.html', context)
 
 
 def profile_account(request):
+    photo_form = ProfileForm(request.POST or None, request.FILES or None, instance=request.user.profile)
     form = EditUserForm(instance=request.user)
     if request.method == 'POST':
-        form = EditUserForm(request.POST, request.FILES or None, instance=request.user)
+        form = EditUserForm(request.POST)
         form.save(request)
+        photo_form.save()
     context = {
         'form': form,
+        'photo_form': photo_form,
     }
     return render(request, 'accounts/profile-account.html', context)
 
@@ -80,3 +83,11 @@ def test(request):
             'form': form
         }
         return render(request, 'accounts/test.html', context)
+
+
+def myfavorite_properties(request):
+    favorite_properties = request.user.profile.favorite_properties.all()
+    context = {
+        'favorite_properties': favorite_properties
+    }
+    return render(request, 'accounts/favorite-properties.html', context)

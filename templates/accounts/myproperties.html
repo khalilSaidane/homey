@@ -2,39 +2,46 @@
 {% load bootstrap4 %}
 {% load fontawesome %}
 {% block profile_section %}
-    <table class="table table-hover">
-        <thead class="thead-light">
-        <tr>
-            <th scope="col">Property</th>
-            <th scope="col">Date</th>
-            <th scope="col">Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for property in myproperties %}
-        <tr>
-            <td>
-                <img src="" alt="">
-                <div class="container">
-                    <div class="row">
-                        <div class="col">
-                            <img class="img-fluid" src="{{ property.photo_main.url }}">
+    {% if myproperties %}
+        <h1 class="m-2">My Properties:</h1>
+        <table class="table table-hover">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">Property</th>
+                <th scope="col">Date</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for property in myproperties %}
+                <tr>
+                    <td>
+                        <img src="" alt="">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <img class="img-fluid" src="{{ property.photo_main.url }}">
+                                </div>
+                                <div class="col">
+                                    <div class="row">{{ property.name }}</div>
+                                    <div class="row">Ksar Hellal Monastir</div>
+                                    <div class="row">$ 54 0000</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col">
-                            <div class="row">{{ property.name }}</div>
-                            <div class="row">Ksar Hellal Monastir</div>
-                            <div class="row">$ 54 0000</div>
-                        </div>
-                    </div>
-                </div>
-            </td>
-            <td>{{property.list_date}}</td>
-            <td>
-                <a class="m-2" id="edit">  {% fontawesome_icon 'edit' %} Edit</a>
-                <a id="delete">  {% fontawesome_icon 'trash' %}</a>
-            </td>
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                    </td>
+                    <td>{{ property.list_date }}</td>
+                    <td>
+                        <a class="edit" href="{% url 'edit_listing' property.id %}">  {% fontawesome_icon 'edit' %}
+                            Edit</a>
+                        <a class="delete"
+                           href="{% url 'delete_listing' property.id %}">  {% fontawesome_icon 'trash' %}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="text-center text-info">You don't have any properties yet</p>
+    {% endif %}
 {% endblock %}

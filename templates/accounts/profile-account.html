@@ -6,6 +6,7 @@
     <form action="{% url 'profile-account' %}" method="post" class="form" enctype="multipart/form-data">
         {% csrf_token %}
         {% bootstrap_form form %}
+        {% bootstrap_form photo_form %}
         {% buttons %}
             <button type="submit" class="btn btn-danger">
                 Save

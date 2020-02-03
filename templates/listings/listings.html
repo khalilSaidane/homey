@@ -11,20 +11,28 @@
             <div class="col-md-4">
                 {% include 'listings/advancedSearch.html' %}
             </div>
-            {% for listing in listings %}
-                <div class="col m-1">
-                    <div class="card-deck">
-                        <div class="card">
+            <div class="col m-1">
+                {% for listing in listings %}
+                    <div class="card-deck m-3">
+                        <div class="card-columns">
                             <img class="card-img-top" alt="Card image cap" src={{ listing.photo_main.url }}>
                             <div class="card-body">
                                 <h5 class="card-title">{{ listing.publisher }}</h5>
                                 <p class="card-text">{{ listing.description }}</p>
-                                <button class="btn btn-outline-secondary">{% fontawesome_icon 'heart' %}</button>
+                                {% if listing in my_favorites %}
+                                    <a class="btn btn-danger"
+                                       href="{% url 'like' listing.id %}">{% fontawesome_icon 'heart' %}</a>
+                                {% else %}
+                                    <a class="btn btn-secondary"
+                                       href="{% url 'like' listing.id %}">{% fontawesome_icon 'heart' %}</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
+
         </div>
     </div>
 {% endblock %}
+

@@ -7,8 +7,8 @@
         <div class="row">
             <div class="col-3">
                 <div class="card">
-                    <img class="card-img-top" alt="Card image cap">
-                {%  block photo_form %}
+                    <img class="card-img-top" alt="Card image cap" src="{{ user.profile.photo.url }}">
+                    {% block photo_form %}
                     {% endblock %}
                     <di class="card-body">
                         <ul class="list-group">
@@ -22,18 +22,23 @@
                                     My Profile
                                 </a>
                             </li>
-                            <li class="list-group-item">
-                                <a class="btn btn-primary-outline" name="profile">{% fontawesome_icon 'heart' %}
-                                    Favorite
-                                    Properties
-                                </a>
-                            </li>
                             <li class="list-group-item"
-                                 {% if "/accounts/myproperties" == request.path %}
+                                    {% if "/accounts/favorite_properties" == request.path %}
                                 style="background: #5b80b2"
                                     {% endif %}
                             >
-                                <a href="{% url 'myproperties' %}" class="btn btn-primary-outline">{% fontawesome_icon 'home' %} My
+                                <a href="{% url 'favorite_properties' %}" class="btn btn-primary-outline">
+                                    {% fontawesome_icon 'heart' %}
+                                    Favorite Properties
+                                </a>
+                            </li>
+                            <li class="list-group-item"
+                                    {% if "/accounts/myproperties" == request.path %}
+                                style="background: #5b80b2"
+                                    {% endif %}
+                            >
+                                <a href="{% url 'myproperties' %}"
+                                   class="btn btn-primary-outline">{% fontawesome_icon 'home' %} My
                                     Properties
                                 </a>
                             </li>
