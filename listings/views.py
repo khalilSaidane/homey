@@ -69,3 +69,18 @@ def like(request, pk):
         profile.favorite_properties.add(listing)
         profile.save()
         return redirect('listings')
+
+def myproperties(request):
+    myproperties = Listing.objects.all().order_by('-list_date').filter(publisher_id=request.user.id)
+    context = {
+        'myproperties': myproperties
+    }
+    return render(request, 'listings/myproperties.html', context)
+
+
+def myfavorite_properties(request):
+    favorite_properties = request.user.profile.favorite_properties.all()
+    context = {
+        'favorite_properties': favorite_properties
+    }
+    return render(request, 'listings/favorite-properties.html', context)

@@ -63,12 +63,7 @@ def change_password(request):
         return render(request, 'accounts/change_password.html', context)
 
 
-def myproperties(request):
-    myproperties = Listing.objects.all().order_by('-list_date').filter(publisher_id=request.user.id)
-    context = {
-        'myproperties': myproperties
-    }
-    return render(request, 'accounts/myproperties.html', context)
+
 
 
 def test(request):
@@ -85,9 +80,3 @@ def test(request):
         return render(request, 'accounts/test.html', context)
 
 
-def myfavorite_properties(request):
-    favorite_properties = request.user.profile.favorite_properties.all()
-    context = {
-        'favorite_properties': favorite_properties
-    }
-    return render(request, 'accounts/favorite-properties.html', context)
